@@ -1,0 +1,239 @@
+rIt({
+  "*": {
+      "assets": [
+          "/securewebapps/evercdn/assets/notificationsjs/v1/scripts/main.min.js",
+          "/securewebapps/evercdn/assets/notificationsjs/v1/styles/main.min.css",
+          "/js/_essentials/basics.js",
+          "/js/_essentials/ruffnav.js"
+      ],
+      "function": "always"
+  },
+  "body.isOldBrowser": {
+      "assets": ["/securewebapps/evercdn/assets/notificationsjs/v1/scripts/oldbrowser.js"]
+  },
+  ".modalGallery": {
+      "assets": ["/js/baguetteBox.js"],
+      "function": function (selector) {
+          baguetteBox.run(selector, { noScrollbars: true, async: true, preload: 0 });
+      }
+  },
+  "img[data-src], [data-srcset], .lazyBg": {
+      "assets": ["/js/_essentials/basics.js", "/securewebapps/evercdn/assets/lazyloading/v2/scripts/main.min.js"],
+      "function": function (selector) {
+          const lazyload = new LazyLoad({selector: "img[data-src], [data-srcset], .modalGallery, .lazyBg"});
+      }
+  },
+  "form[action*='formixapp.com']:not([data-evercaptcha])": {
+      "assets": ["/js/_essentials/basics.js", "/securewebapps/evercdn/assets/formixjs/v1/scripts/main.min.js"],
+      "function": function (selector) {
+          const formix = new Formix({ selector: selector });
+      }
+  },
+  "form[data-evercaptcha]": {
+      "assets": [
+          "/js/_essentials/basics.js",
+          "/securewebapps/evercdn/assets/formixjs/v1/scripts/main.min.js",
+          "/securewebapps/evercdn/assets/evercaptcha/v1/scripts/main.min.js"
+      ],
+      "function": function (selector) {
+          const formix = new Formix({
+              selector: selector,
+              eventName: "evercaptcha-valid"
+          });
+          const everCaptcha = new EverCAPTCHA(selector, true, {
+              hookSending: true
+          });
+      },
+      "lazy": true
+  },
+  "html[data-privacy-control]": {
+      "assets": [
+          "/securewebapps/evercdn/assets/privacyControl/v3/scripts/config.min.js",
+          "/securewebapps/evercdn/assets/privacyControl/v3/scripts/main.min.js",
+          "/securewebapps/evercdn/assets/privacyControl/v3/styles/main.min.css"
+      ],
+      "function": function () {
+          const privacyCtrl = new PrivacyControl()
+          privacyCtrl.addService('googlemaps')
+          window.GA_MEASUREMENT_IDS = ["GTM-P78ZV76M"]
+          privacyCtrl.addService('gtag_gtm')
+      }
+  },
+  ".teaserSlide": {
+      "assets": ["/js/tiny-slider.js"],
+      "function": function() {
+        var slider = tns({
+          container: '.teaserSlide',
+          items: 2,
+          slideBy: 'page',
+          nav: false,
+          controls: false,
+          autoplay: true,
+          mouseDrag: true,
+          center: true,
+          "responsive": {
+                  "200": {
+                    "items": 2,
+                    "center": true,
+                },
+                "800": {
+                    "items": 3,
+                    "center": true,
+                },
+                "1200": {
+                    "items": 6,
+                    "center": false,
+                    "disable": true,
+                },
+            },
+        });
+      },
+    },
+    ".slideshow": {
+      "assets": ["/js/tiny-slider.js"],
+      "function": function() {
+        var slider = tns({
+          container: '.slideshow',
+          items: 1,
+          slideBy: 'page',
+          nav: false,
+          controls: false,
+          autoplay: true,
+          mouseDrag: true,
+          center: true,
+        });
+      },
+    },
+    ".collapser": {
+      "assets": ["/js/collapser.min.js"],
+      "function": function() {
+      var collapser = new Collapser();
+      }
+    },
+});
+
+function always() {
+  new ScrollDir(document.body);
+  const ruffnav = new Ruffnav()
+}
+
+
+// -> OLD ONE
+
+
+// requireJS({
+//     "*": {
+//         "scripts": ["/js/notifications/_core.js", "/js/basics.js", "/js/ruffnav.js", "/privacyControl-2.0.conf.js", "/js/privacyControl-2.js", "/js/notifications.js"],
+//         "function": "always"
+//     },
+//     "body.isOldBrowser": {
+//         "scripts": ["/js/notifications/oldBrowserNotice.js"]
+//     },
+//     ".modalGallery":  {
+//         "scripts": ["/js/baguetteBox.js"],
+//         "function":function() {
+//             baguetteBox.run('.modalGallery', {noScrollbars:true, async: true, preload: 0});
+//         }
+//     },
+//     "img[data-src], [data-srcset], .lazyBg": {
+//         "scripts": ["/js/lazyLoad.js"],
+//         "function":function() {
+//             new LazyLoad({selector: "img[data-src], [data-srcset], .modalGallery, .lazyBg"});
+//         }
+//     },
+//     ".teaserSlide": {
+//       "scripts": ["/js/tiny-slider.js"],
+//       "function": function() {
+//         var slider = tns({
+//           container: '.teaserSlide',
+//           items: 2,
+//           slideBy: 'page',
+//           nav: false,
+//           controls: false,
+//           autoplay: true,
+//           mouseDrag: true,
+//           center: true,
+//           "responsive": {
+//                  "200": {
+//                    "items": 2,
+//                     "center": true,
+//                 },
+//                 "800": {
+//                    "items": 3,
+//                     "center": true,
+//                 },
+//                 "1200": {
+//                    "items": 6,
+//                    "center": false,
+//                    "disable": true,
+//                 },
+//             },
+//         });
+//       },
+//     },
+//     ".slideshow": {
+//       "scripts": ["/js/tiny-slider.js"],
+//       "function": function() {
+//         var slider = tns({
+//           container: '.slideshow',
+//           items: 1,
+//           slideBy: 'page',
+//           nav: false,
+//           controls: false,
+//           autoplay: true,
+//           mouseDrag: true,
+//           center: true,
+//         });
+//       },
+//     },
+//     ".collapser": {
+//       "scripts": ["/js/collapser.min.js"],
+//       "function": function() {
+//       var collapser = new Collapser();
+//       }
+//     },
+//   //   "html[data-privacy-control='true']": {
+//   //     "scripts": ["/js/basics.js", "/privacyControl-2.0.conf.js", "/js/privacyControl-2.js", "/js/notifications.js"],
+//   //     "function": function() {
+//   //         privacyCtrl = new PrivacyControl({
+//   //             deps: {
+//   //                 googlemaps: true
+//   //             }
+//   //         })
+//   //     }
+//   // }
+//   "html[data-privacy-control]": {
+//     "scripts": [
+//         "/securewebapps/evercdn/assets/privacyControl/v3/scripts/config.min.js", 
+//         "/securewebapps/evercdn/assets/privacyControl/v3/scripts/main.min.js", 
+//         "/securewebapps/evercdn/assets/privacyControl/v3/styles/main.min.css"
+//     ],
+//     "function": function() {
+//         let privacyCtrl = new PrivacyControl()
+//         privacyCtrl.addService('googlemaps')
+//     }
+// }
+// });
+
+// function always()
+// {
+//     var nav = new Ruffnav({backText: 'Zurück'});
+//     new ScrollDir(document.body);
+
+//     // privacyCtrl = new PrivacyControl({
+//     //     deps: {
+//     //         googlemaps: true
+//     //     },
+//     //     force: false,
+//     //     badge: true
+//     // });
+    
+// }
+
+
+// /**
+//  * require dependencies
+//  * @author Dominik Kressler
+//  * @version 0.2
+//  */
+// function requireJS(e,i){var n=[],o=[];i=!(null==typeof i||!i);var c=function(n,o,r,t){i&&console.log("require: "+n[o]);var e=document.createElement("script");e.src=n[o],e.setAttribute("defer","defer"),e.setAttribute("async","async"),e.onload=function(){if(i&&console.info("require: loaded: "+n[o]),o<n.length-1)c(n,o+1,r,t);else for(var e in r)"string"==typeof r[e]?window[r[e]]():r[e]()},e.onerror=function(){t?c(n,o+1,r,t):console.error("require: dependecies failed / stopped because at least one script could not be loaded: "+n[o])},document.querySelector("body").appendChild(e)};for(var r in e)if("always"==r||0<document.querySelectorAll(r).length)for(var t in void 0!==e[r].function&&-1==o.indexOf(e[r].function)&&o.push(e[r].function),e[r].scripts)-1==n.indexOf(e[r].scripts[t])&&n.push(e[r].scripts[t]);i&&console.log("require: Using functions: "+o.join()),n instanceof Array&&c(n,0,o,!1)}
